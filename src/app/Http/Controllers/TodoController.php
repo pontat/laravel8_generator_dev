@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateTodoRequest;
 use App\Repositories\TodoRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Flash;
 use Response;
 
@@ -55,6 +56,7 @@ class TodoController extends AppBaseController
     public function store(CreateTodoRequest $request)
     {
         $input = $request->all();
+        $input['user_id'] = Auth::id();
 
         $todo = $this->todoRepository->create($input);
 
@@ -121,7 +123,10 @@ class TodoController extends AppBaseController
             return redirect(route('todos.index'));
         }
 
-        $todo = $this->todoRepository->update($request->all(), $id);
+        $input = $request->all();
+        $input['user_id'] = Auth::id();
+
+        $todo = $this->todoRepository->update($input, $id);
 
         Flash::success('Todo updated successfully.');
 
