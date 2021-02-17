@@ -22,7 +22,7 @@ class Todo extends Model
     use HasFactory;
 
     public $table = 'todos';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -56,5 +56,15 @@ class Todo extends Model
         'status' => 'required|numeric'
     ];
 
-    
+    public static $statusNames = [
+        '未対応',
+        '処理中',
+        '処理済',
+        '完了',
+    ];
+
+    public function getStatusNameAttribute(): string
+    {
+        return self::$statusNames[$this->status];
+    }
 }

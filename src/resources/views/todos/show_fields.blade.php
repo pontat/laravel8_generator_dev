@@ -7,7 +7,7 @@
 <!-- Status Field -->
 <div class="col-sm-12">
     {!! Form::label('status', 'Status:') !!}
-    <p>{{ $todo->status }}</p>
+    <p>{{ $todo->status_name }}</p>
 </div>
 
 <!-- Created At Field -->
