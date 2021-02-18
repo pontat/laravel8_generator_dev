@@ -52,7 +52,7 @@ class Todo extends Model
      * @var array
      */
     public static $rules = [
-        'title' => 'required|max:20',
+        'title' => 'required|max:255',
         'status' => 'required|numeric'
     ];
 

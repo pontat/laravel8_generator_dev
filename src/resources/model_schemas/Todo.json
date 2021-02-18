@@ -27,7 +27,7 @@
         "name": "title",
         "dbType": "string",
         "htmlType": "text",
-        "validations": "required|max:20",
+        "validations": "required|max:255",
         "searchable": true,
         "fillable": true,
         "primary": false,
