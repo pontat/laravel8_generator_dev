@@ -30,10 +30,12 @@ class TodoController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $todos = $this->todoRepository->all();
+        $queryText = $request->input('queryText');
+        $status = $request->input('status');
+        $sort = $request->input('sort');
+        $todos = $this->todoRepository->search($queryText, $status, $sort);
 
-        return view('todos.index')
-            ->with('todos', $todos);
+        return view('todos.index', compact('queryText', 'status', 'sort', 'todos'));
     }
 
     /**
@@ -76,7 +78,7 @@ class TodoController extends AppBaseController
     {
         $todo = $this->todoRepository->find($id);
 
-        if (empty($todo)) {
+        if (empty($todo) || $todo->user_id !== Auth::id()) {
             Flash::error('Todo not found');
 
             return redirect(route('todos.index'));
@@ -96,7 +98,7 @@ class TodoController extends AppBaseController
     {
         $todo = $this->todoRepository->find($id);
 
-        if (empty($todo)) {
+        if (empty($todo) || $todo->user_id !== Auth::id()) {
             Flash::error('Todo not found');
 
             return redirect(route('todos.index'));
@@ -117,7 +119,7 @@ class TodoController extends AppBaseController
     {
         $todo = $this->todoRepository->find($id);
 
-        if (empty($todo)) {
+        if (empty($todo) || $todo->user_id !== Auth::id()) {
             Flash::error('Todo not found');
 
             return redirect(route('todos.index'));
@@ -146,7 +148,7 @@ class TodoController extends AppBaseController
     {
         $todo = $this->todoRepository->find($id);
 
-        if (empty($todo)) {
+        if (empty($todo) || $todo->user_id !== Auth::id()) {
             Flash::error('Todo not found');
 
             return redirect(route('todos.index'));
